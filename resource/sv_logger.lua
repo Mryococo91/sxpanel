@@ -25,6 +25,8 @@ local function logger(src, type, data)
         data = data or false,
     }
 end
+-- Exposed for other server scripts of this resource (e.g. sv_combatlog.lua)
+TxLogServerEvent = logger
 
 -- send all of the buffered logs every second
 CreateThread(function()
@@ -411,12 +413,40 @@ AddEventHandler('txsv:logger:menuEvent', function(source, action, allowed, data)
 end)
 
 -- Extra handlers
+-- Death events are reported by the victim's client, so they are sanitized and throttled
+local DEATH_EVENT_COOLDOWN_MS = 2000
+local lastDeathEventAt = {}
 RegisterNetEvent('txsv:logger:deathEvent', function(killer, cause)
+    local victim = tonumber(source)
+    if not victim or victim <= 0 then
+        return
+    end
+
+    local now = GetGameTimer()
+    if lastDeathEventAt[victim] and now - lastDeathEventAt[victim] < DEATH_EVENT_COOLDOWN_MS then
+        return
+    end
+    lastDeathEventAt[victim] = now
+
+    if type(cause) ~= 'string' or cause == '' then
+        cause = 'unknown'
+    end
+    killer = tonumber(killer)
+    if killer and (killer <= 0 or killer == victim or not GetPlayerName(killer)) then
+        killer = nil
+    end
+
     local logData = {
-        cause = cause,
-        killer = killer,
+        cause = sub(cause, 1, 64),
+        killer = killer or false,
     }
-    logger(source, 'DeathNotice', logData)
+    if killer and type(TxCombatLogConsumeKill) == 'function' then
+        logData.combat = TxCombatLogConsumeKill(killer, victim)
+    end
+    logger(victim, 'DeathNotice', logData)
+end)
+AddEventHandler('playerDropped', function()
+    lastDeathEventAt[tonumber(source)] = nil
 end)
 
 --FIXME: deprecate or allow server commands

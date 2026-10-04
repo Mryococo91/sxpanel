@@ -18,12 +18,14 @@ node_version '22'
 -- NOTE: Script lists below are auto-generated at build time via fs.glob
 shared_scripts({
     'resource/shared.lua',
+    'resource/shared_weapons.lua',
 })
 
 server_scripts({
     'entrypoint.js',
     'resource/sv_main.lua', --must run first
     'resource/sv_admins.lua',
+    'resource/sv_combatlog.lua',
     'resource/sv_logger.lua',
     'resource/sv_resources.lua',
     'resource/sv_playerlist.lua',

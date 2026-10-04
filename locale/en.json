@@ -2372,6 +2372,17 @@
                 "discord_channel_desc": "When set, new tickets will create a Discord thread in this channel (requires Discord integration to be enabled).",
                 "toast_retention_invalid": "Retention days must be a number between 1 and 365."
             },
+            "game_combat_log": {
+                "enabled_label": "Combat Log",
+                "enabled_desc": "Tracks player-vs-player damage in-game. Kills are logged with hits, headshots, damage, and distance, and non-lethal fights are logged as a single summary in the Server Log.",
+                "enabled_desc_discord": "Route these events to Discord with the Combat Logs stream in the Discord logging settings.",
+                "onesync_warning": "Requires OneSync. Hit details are reported by the attacking player's game client, so treat them as evidence to review, not proof.",
+                "master_only": "Only the master admin can change the Combat Log settings.",
+                "damage_summaries_label": "Damage Summaries",
+                "damage_summaries_desc": "Log fights that did not end in a kill once both players stop hitting each other. Disable this on busy combat servers to only log kills.",
+                "engagement_window_label": "Engagement Window (seconds)",
+                "engagement_window_desc": "How long two players must stop hitting each other before a fight is considered over and its summary is logged. Between 3 and 60 seconds, default 10."
+            },
             "discord_oauth": {
                 "client_id_label": "Client ID",
                 "client_secret_label": "Client Secret",

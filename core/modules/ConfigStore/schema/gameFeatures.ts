@@ -165,6 +165,27 @@ const hideDefaultScheduledRestartWarning = typeDefinedConfig({
     fixer: SYM_FIXER_DEFAULT,
 });
 
+const combatLogEnabled = typeDefinedConfig({
+    name: 'Combat Log Enabled',
+    default: false,
+    validator: z.boolean(),
+    fixer: SYM_FIXER_DEFAULT,
+});
+
+const combatLogDamageSummaries = typeDefinedConfig({
+    name: 'Combat Log Damage Summaries',
+    default: true,
+    validator: z.boolean(),
+    fixer: SYM_FIXER_DEFAULT,
+});
+
+const combatLogEngagementWindow = typeDefinedConfig({
+    name: 'Combat Log Engagement Window (seconds)',
+    default: 10,
+    validator: z.number().int().min(3).max(60),
+    fixer: SYM_FIXER_DEFAULT,
+});
+
 const newplayerThreshold = typeDefinedConfig({
     name: 'New Player Tag Threshold (minutes)',
     default: 240,
@@ -230,6 +251,9 @@ export default {
     hideDefaultDirectMessage,
     hideDefaultWarning,
     hideDefaultScheduledRestartWarning,
+    combatLogEnabled,
+    combatLogDamageSummaries,
+    combatLogEngagementWindow,
     newplayerThreshold,
     customTags,
     customCommands,
