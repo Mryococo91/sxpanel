@@ -383,6 +383,16 @@ AddEventHandler('txsv:logger:menuEvent', function(source, action, allowed, data)
     elseif action == 'stopServer' then
         message = 'requested a server stop'
 
+    --Custom chat commands (menu actions log through their own events)
+    elseif action == 'customCommand' then
+        if type(data) ~= 'table' or type(data.name) ~= 'string' then
+            return
+        end
+        message = 'used custom command /' .. data.name
+        if type(data.detail) == 'string' and data.detail ~= '' then
+            message = message .. ' (' .. data.detail .. ')'
+        end
+
     --In case of unknown event
     else
         logger(source, 'DebugMessage', 'unknown menu event ' .. action)

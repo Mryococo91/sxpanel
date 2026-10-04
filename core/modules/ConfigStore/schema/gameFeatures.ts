@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { typeDefinedConfig } from './utils';
-import { SYM_FIXER_DEFAULT } from '@lib/symbols';
+import { SYM_FIXER_DEFAULT, SYM_FIXER_FATAL } from '@lib/symbols';
+import { CustomCommand, CustomCommandsArraySchema } from '@shared/customCommands';
 
 const AUTO_TAG_IDS = new Set(['staff', 'problematic', 'newplayer']);
 
@@ -200,6 +201,14 @@ const customTags = typeDefinedConfig({
     fixer: SYM_FIXER_DEFAULT,
 });
 
+const customCommands = typeDefinedConfig({
+    name: 'Custom Chat Commands',
+    default: [] as CustomCommand[],
+    validator: CustomCommandsArraySchema,
+    //NOTE: if the config file got manually broken, we don't want to wipe out the commands
+    fixer: SYM_FIXER_FATAL,
+});
+
 export default {
     reportsEnabled,
     ticketCategories,
@@ -223,4 +232,5 @@ export default {
     hideDefaultScheduledRestartWarning,
     newplayerThreshold,
     customTags,
+    customCommands,
 } as const;

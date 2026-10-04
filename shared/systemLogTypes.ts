@@ -82,6 +82,7 @@ const configChangeLogFieldDefinitions = [
     ['gameFeatures.hideDefaultScheduledRestartWarning', 'Hide Scheduled Restart Warnings'],
     ['gameFeatures.newplayerThreshold', 'New Player Tag Threshold (minutes)'],
     ['gameFeatures.customTags', 'Custom Player Tags'],
+    ['gameFeatures.customCommands', 'Custom Chat Commands'],
     ['panelFeatures.whitelistPage', 'Whitelist Page Enabled'],
     ['panelFeatures.historyPage', 'History Page Enabled'],
     ['panelFeatures.insightsPage', 'Insights Page Enabled'],

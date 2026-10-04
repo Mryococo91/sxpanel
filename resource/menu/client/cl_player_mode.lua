@@ -239,6 +239,8 @@ local function askChangePlayerMode(mode)
 
     TriggerServerEvent('txsv:req:changePlayerMode', mode, nearbyPlayers)
 end
+-- Exposed for custom chat commands (cl_custom_commands.lua)
+TxAskChangePlayerMode = askChangePlayerMode
 
 -- NoClip toggle keybind
 RegisterCommand('txAdmin:menu:noClipToggle', function()
