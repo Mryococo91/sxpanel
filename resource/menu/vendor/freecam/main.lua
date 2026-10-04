@@ -44,7 +44,9 @@ local function DrawScrollSpeed()
   SetTextOutline()
   SetTextCentre(true)
   BeginTextCommandDisplayText('STRING')
-  AddTextComponentSubstringPlayerName(('Speed: x%.2f'):format(scrollSpeed))
+  local label = GetInstructionalLabel('noclip_speed_value', 'Speed: x%{speed}')
+  local speedText = ('%.2f'):format(scrollSpeed)
+  AddTextComponentSubstringPlayerName((label:gsub('%%{speed}', speedText)))
   EndTextCommandDisplayText(0.5, 0.85)
 end
 

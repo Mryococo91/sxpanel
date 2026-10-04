@@ -142,7 +142,9 @@
             "noclip_left_right": "Left/Right",
             "noclip_title": "NoClip",
             "noclip_down": "Down",
-            "noclip_up": "Up"
+            "noclip_up": "Up",
+            "noclip_speed": "Speed",
+            "noclip_speed_value": "Speed: x%{speed}"
         },
         "frozen": {
             "froze_player": "You have frozen the player!",
