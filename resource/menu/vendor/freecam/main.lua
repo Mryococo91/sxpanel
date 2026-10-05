@@ -55,11 +55,16 @@ local function GetSpeedMultiplier()
   local slowNormal = GetSmartControlNormal(CONTROLS.MOVE_SLOW)
 
   local baseSpeed = SETTINGS.BASE_MOVE_MULTIPLIER
-  local fastSpeed = 1 + ((SETTINGS.FAST_MOVE_MULTIPLIER - 1) * fastNormal)
   local slowSpeed = 1 + ((SETTINGS.SLOW_MOVE_MULTIPLIER - 1) * slowNormal)
+  -- Slow overrides any speed boost (fast key and scroll above x1), so it always slows down
+  local fastSpeed = 1 + ((SETTINGS.FAST_MOVE_MULTIPLIER - 1) * fastNormal * (1 - slowNormal))
+  local scrollBoost = scrollSpeed
+  if scrollSpeed > 1 then
+    scrollBoost = scrollSpeed + ((1 - scrollSpeed) * slowNormal)
+  end
 
   local frameMultiplier = GetFrameTime() * 60
-  local speedMultiplier = baseSpeed * scrollSpeed * fastSpeed / slowSpeed
+  local speedMultiplier = baseSpeed * scrollBoost * fastSpeed / slowSpeed
 
   return speedMultiplier * frameMultiplier
 end
